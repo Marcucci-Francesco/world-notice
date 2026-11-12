@@ -1,5 +1,7 @@
 # World Notice
 
+**Online:** https://marcucci-francesco.github.io/world-notice/
+
 App personale: le notizie principali di 204 paesi su una mappa interattiva, aggiornate ogni ora.
 
 ## Com'è fatta
