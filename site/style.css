@@ -479,7 +479,8 @@ svg { display: block; }
     right: 8px;
     bottom: 8px;
     width: auto;
-    height: 46vh;
+    height: 30vh;
+    min-height: 210px;
     border-radius: 30px;
     padding-bottom: env(safe-area-inset-bottom);
   }

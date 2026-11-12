@@ -91,7 +91,7 @@
   /* ───────── Globo 3D ───────── */
   const IMG = "https://cdn.jsdelivr.net/npm/three-globe@2.31.0/example/img/";
   const START_VIEW = { lat: 28, lng: 12, altitude: 2.7 };
-  const startAltitude = () => (mobile() ? 3.4 : START_VIEW.altitude);
+  const startAltitude = () => (mobile() ? 4.1 : START_VIEW.altitude);
   const BASE = 0.004;         // poligoni appena sopra la superficie, invisibili
   const MIN_PART = 4e-6;      // isole più piccole di ~150 km² non diventano poligoni (alleggerisce)
   let globe = null;
