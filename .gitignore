@@ -1,0 +1,9 @@
+# Le notizie vengono scaricate da GitHub ogni ora: non serve salvarle nel progetto
+site/data/
+cache/
+.DS_Store
+.claude/
+
+# Note di lavoro con informazioni personali: restano solo sul Mac
+HANDOFF.md
+__pycache__/

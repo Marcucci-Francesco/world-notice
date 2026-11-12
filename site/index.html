@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="World Notice">
+  <title>World Notice</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="style.css?v=31">
+</head>
+<body>
+  <div id="globe" role="img" aria-label="Globo terrestre 3D con le notizie per paese"></div>
+
+  <!-- Intestazione -->
+  <header class="glass brand">
+    <span class="brand-dot" aria-hidden="true"></span>
+    <div>
+      <h1>World Notice</h1>
+      <p id="updated">Caricamento…</p>
+    </div>
+  </header>
+
+  <!-- Paese selezionato o sotto il mouse: sempre visibile in questo punto -->
+  <div class="glass badge" id="badge" aria-live="polite" hidden>
+    <span class="b-flag" id="b-flag"></span>
+    <div><b id="b-name"></b><small id="b-sub"></small></div>
+  </div>
+
+  <!-- Categorie -->
+  <nav class="glass segmented" id="cats" aria-label="Categorie"></nav>
+
+  <!-- Pulsanti mappa -->
+  <div class="controls">
+    <button class="glass round" id="zoom-in" aria-label="Ingrandisci">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+    <button class="glass round" id="zoom-out" aria-label="Riduci">
+      <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+    </button>
+    <button class="glass round" id="reset" aria-label="Vista mondo">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg>
+    </button>
+  </div>
+
+  <div class="toolbar">
+    <button class="glass pill" id="open-picker" aria-haspopup="dialog" aria-label="Cerca paesi e notizie">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Cerca</span>
+    </button>
+    <button class="glass pill" id="open-favs" aria-label="Preferiti">
+      <svg viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>
+      <span>Preferiti</span>
+    </button>
+    <button class="glass pill" id="open-tour" aria-label="Avvia il Tour del mondo">
+      <svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg>
+      <span>Tour</span>
+    </button>
+  </div>
+
+  <!-- Ticker in stile telegiornale -->
+  <div class="glass ticker" id="ticker" hidden>
+    <span class="ticker-label">ULTIM'ORA</span>
+    <div class="ticker-track"><div class="ticker-run" id="ticker-run"></div></div>
+  </div>
+
+  <!-- Modalità Tour: il globo vola da solo sui paesi più caldi -->
+  <div class="tour" id="tour" hidden>
+    <div class="tour-frame" id="tour-frame">
+      <div class="tour-progress" id="tour-progress"></div>
+      <div class="tour-intro" id="tour-intro">
+        <p class="ti-kicker">World Notice</p>
+        <h2 id="ti-title">Il mondo oggi</h2>
+        <p class="ti-date" id="ti-date"></p>
+      </div>
+      <div class="tour-card glass" id="tour-card">
+        <span class="tc-flag" id="tc-flag"></span>
+        <div class="tc-text">
+          <p class="tc-country" id="tc-country"></p>
+          <p class="tc-title" id="tc-title"></p>
+          <p class="tc-meta" id="tc-meta"></p>
+        </div>
+      </div>
+      <div class="tour-controls">
+        <button class="glass pill" id="tour-ratio" type="button">Formato 9:16</button>
+        <button class="glass pill" id="tour-exit" type="button">Esci</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pannello notizie -->
+  <aside class="glass sheet" id="sheet" data-state="peek" aria-live="polite">
+    <button class="handle" id="handle" aria-label="Espandi o riduci il pannello"><span></span></button>
+    <div class="sheet-head">
+      <div class="sheet-title">
+        <span class="flag" id="p-flag">🌍</span>
+        <div>
+          <h2 id="p-name">Mondo</h2>
+          <p id="p-sub"></p>
+        </div>
+      </div>
+      <div class="head-actions">
+        <button class="glass round small star" id="fav" aria-label="Aggiungi ai preferiti" aria-pressed="false" hidden>
+          <svg viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>
+        </button>
+        <button class="glass round small" id="close" aria-label="Torna al mondo" hidden>
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="list" id="list"></div>
+    <p class="hint">Notizie da Google News, tradotte in automatico. Tocca <b>Originale</b> per leggere il titolo nella lingua del giornale.</p>
+  </aside>
+
+  <!-- Selettore paesi -->
+  <div class="backdrop" id="picker-wrap" hidden>
+    <div class="glass picker" role="dialog" aria-modal="true" aria-label="Scegli un paese">
+      <div class="picker-head">
+        <input id="picker-search" type="search" placeholder="Cerca un paese o una parola nelle notizie" autocomplete="off">
+        <button class="glass round small" id="close-picker" aria-label="Chiudi">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="picker-grid" id="picker-grid"></div>
+    </div>
+  </div>
+
+  <div class="glass toast" id="toast" role="status" hidden></div>
+  <div class="glass tip" id="tip" hidden></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/globe.gl@2.46.2/dist/globe.gl.min.js" crossorigin="anonymous"></script>
+  <script src="app.js?v=31"></script>
+</body>
+</html>
